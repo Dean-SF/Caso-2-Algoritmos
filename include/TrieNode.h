@@ -1,11 +1,11 @@
 #ifndef TRIENODE_H
 #define TRIENODE_H
 
-#include "BSTDictionary.h"
+#include "AVLTreeDictionary.h"
 
 class TrieNode {
 private:
-    BSTDictionary<char,TrieNode*> children;
+    AVLTreeDictionary<char,TrieNode*> children;
     
 public:
     bool isFinal;

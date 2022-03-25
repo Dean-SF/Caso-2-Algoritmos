@@ -3,4 +3,4 @@ quick:
 insertion:
 	g++ -static -std=c++17 insertionsort.cpp -o insertionsort && .\insertionsort.exe
 free:
-	g++ -static -std=c++17 freetextSearch.cpp -o freetextSearch && .\freetextSearch.exe
+	g++ -static -Wl,--stack,33554432 -Iinclude -std=c++17 freetextSearch.cpp -o freetextSearch && .\freetextSearch.exe

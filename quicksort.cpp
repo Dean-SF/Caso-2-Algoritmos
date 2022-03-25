@@ -125,6 +125,8 @@ int main() {
     const int TEST_COUNT = 10;
     int arrSize = SIZE_CUADRATIC;
     int timeDuration[TEST_COUNT];
+    
+    cout << "------------------ Quicksort cuadratico ------------------" << endl;
 
     for(int j = 0; j < TEST_COUNT; j++) {
         int *arr = new int[arrSize];
@@ -153,8 +155,9 @@ ordenando un arreglo que esta en el orden inverso tomando como pivote el element
 Se puede apreciar como el algoritmo tiene una tasa de crecimiento muy parecida a la de una funcion \n\
 cuadratica, tomando en consideracion que el sistema operativo y los procesos que corren de fondo, \n\
 pueden causar muchas variaciones, se puede concluir que dicho algoritmo bajo estas circunstancias \n\
-es de una complejidad cuadratica O(n^2)" << endl;
-    
+es de una complejidad cuadratica O(n^2)" << endl << endl;
+
+    cout << "------------------ Quicksort logaritmico ------------------" << endl;
 
     arrSize = SIZE_LOGARITHMIC;
         
@@ -197,14 +200,84 @@ O(nlogn) en el peor de los casos, este algoritmo se obtuvo del libro \"Data Stru
 Cuarta edicion por Mark Allen Weiss, y este funciona de manera que se elije un pivote medio con un algoritmo de aproximacion\n\
 que compara el primer elemento, el elemento del medio y el ultimo elemento para obtener una aproximacion de cual\n\
 es el numero medio para usarlo como pivote, de esta forma se optimiza para obtener el mejor caso y caso promedio de forma\n\
-frecuente, ademas de usar otro tipo de algoritmo para sorting, para ordenar aquellos subarreglos que sean tan pequeños\n\
+frecuente, ademas de usar otro tipo de algoritmo para sorting, para ordenar aquellos subarreglos que sean tan pequennios\n\
 que no valga la pena seguir dividiendo en subarrays. De esta forma se obtiene una complejidad temporal O(nlogn) para el peor\n\
 de los casos, segun el experimento programado, se puede apreciar que comparando con una funcion del estilo O(nlogn), se puede\n\
 obtener resultados muy parecidos en su tasa de crecimiento, ignorando la variabilidad del experimento por procesos de segundo plano\n\
 y el sistema operativo. En conclusion, el quicksort puede llegar a ser un algoritmo de O(nlogn)\n\
-" << endl;
+" << endl << endl;
+    
+    cout << "------------------ Influencia del pivote ------------------" << endl;
+    arrSize = SIZE_CUADRATIC;
+    for(int j = 0; j < TEST_COUNT; j++) {
+        int *arr = new int[arrSize];
+        for(int i = 0; i < arrSize; i++) {
+            arr[i] = arrSize-1;
+        }
+        clock_t t = clock();
+        quicksort(arr,0,arrSize-1,true);
+        t = clock() - t;
+        timeDuration[j] = t;
+        cout << "Para " << arrSize << " elementos: " << t << " ticks" << endl;
+        delete [] arr;
+        arrSize += SIZE_CUADRATIC;
+    }
+    cout << "Tasas de Crecimiento:" << endl;
+    for(int i = 0; i < TEST_COUNT - 1; i++) {
+        cout << "T" << i+1 << " " << timeDuration[i+1] - timeDuration[i] << endl;
+    }
+
+    cout << endl;
+    cout << "En este caso se ve que no hay mucha diferencia con respecto a el pivote fijo primero, cuando\n\
+se ordena un arreglo en el orden inverso, pero que pasa si usamos elementos distintos?" << endl << endl;
+
+    arrSize = SIZE_LOGARITHMIC;
+    
+    int timeDurationFijo[TEST_COUNT];
+    for(int j = 0; j < TEST_COUNT; j++) {
+        int *arr = new int[arrSize];
+        int *arr2 = new int[arrSize];
+        srand(126);
+        for(int i = 0; i < arrSize; i++) {
+            arr[i] = rand();
+            arr2[i] = arr[i];
+        }
+
+        clock_t t = clock();
+        quicksort(arr,0,arrSize-1,true);
+        t = clock() - t;
+        timeDuration[j] = t;
+
+        t = clock();
+        quicksort(arr2,0,arrSize-1,false);
+        t = clock() - t;
+        timeDurationFijo[j] = t;
+
+        cout << "Para " << arrSize << " elementos: " << timeDuration[j] << " ticks random y " << timeDurationFijo[j] << " ticks para fijo" << endl;
+        delete [] arr;
+        arrSize += SIZE_CUADRATIC;
+    }
+    cout << "Tasas de Crecimiento:" << endl;
+    for(int i = 0; i < TEST_COUNT - 1; i++) {
+        cout << "Random" << i+1 << " " << timeDuration[i+1] - timeDuration[i];
+        cout << "   Fijo" << i+1 << " " << timeDurationFijo[i+1] - timeDurationFijo[i] << endl;
+    }
+
+    cout << endl;
+
+     cout << "Realmente no existen muchas diferencia entre un pivote fijo y uno random, quitando el hecho que\n\
+la funcion random es muy costosa y se ejecuto para el pivote fijo para que esto no influyera en el test, un pivote\n\
+se puede decir que un pivote random es tan malo como un pivote fijo, puesto a que es impredecible y puede elegir un mal\n\
+pivote o un buen pivote. Para esta prueba se hizo usando elementos random con una seed fija para cada iteracion obtener\n\
+los mismos primeros numeros y un par nuevos para poder hacer la comparacion. En conclusion, un pivote fijo y uno random\n\
+tienen los mismos problemas, y lo mejor es usar el quicksort optimizado con median of 3 y un sort extra para divisiones\n\
+tan pequennias que no tengan sentido seguir dividiendo\n\
+"<< endl << endl;
+
 
     return 0;
 }
+
+
 
 
