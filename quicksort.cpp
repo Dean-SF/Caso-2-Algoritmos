@@ -167,7 +167,6 @@ es de una complejidad cuadratica O(n^2)" << endl << endl;
     for(int j = 0; j < TEST_COUNT; j++) {
         clock_t t;
         for(int k = 0; k < 20; k++) {
-            srand(126);
             int *arr = new int[arrSize];
             for(int i = 0; i < arrSize; i++) {
                 arr[i] = arrSize;
@@ -255,7 +254,7 @@ se ordena un arreglo en el orden inverso, pero que pasa si usamos elementos dist
 
         cout << "Para " << arrSize << " elementos: " << timeDuration[j] << " ticks random y " << timeDurationFijo[j] << " ticks para fijo" << endl;
         delete [] arr;
-        arrSize += SIZE_CUADRATIC;
+        arrSize += SIZE_LOGARITHMIC;
     }
     cout << "Tasas de Crecimiento:" << endl;
     for(int i = 0; i < TEST_COUNT - 1; i++) {
@@ -266,7 +265,7 @@ se ordena un arreglo en el orden inverso, pero que pasa si usamos elementos dist
     cout << endl;
 
      cout << "Realmente no existen muchas diferencia entre un pivote fijo y uno random, quitando el hecho que\n\
-la funcion random es muy costosa y se ejecuto para el pivote fijo para que esto no influyera en el test, un pivote\n\
+la funcion random es muy costosa y se ejecuto para el pivote fijo para que esto no influyera en el test,\n\
 se puede decir que un pivote random es tan malo como un pivote fijo, puesto a que es impredecible y puede elegir un mal\n\
 pivote o un buen pivote. Para esta prueba se hizo usando elementos random con una seed fija para cada iteracion obtener\n\
 los mismos primeros numeros y un par nuevos para poder hacer la comparacion. En conclusion, un pivote fijo y uno random\n\
