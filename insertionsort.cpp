@@ -83,7 +83,7 @@ int main() {
         arrSize += SIZE_LINEAR;
     }
     cout << endl << "los resultados anteriores pueden compararse con la funcion: ";
-    cout << "f(x) = " << time[0] << "x -> la cual es cuadratica" << endl;
+    cout << "f(x) = " << time[0] << "x -> la cual es lineal" << endl;
     cout << "Tasas de Crecimiento:" << endl;
     for(int i = 0; i < TEST_COUNT - 1; i++) {
         cout << "T" << i+1 << " " << time[i+1] - time[i];
